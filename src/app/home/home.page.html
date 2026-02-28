@@ -1,3 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Rick And Morty API - Juan Esteban Vera Velez
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar 
+      placeholder="Buscar personaje..." 
+      (ionInput)="filterCharacters($event)" 
+      animated="true"
+      debounce="300">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="custom-background">
   <ion-grid class="ion-no-padding">
     <ion-row class="ion-justify-content-center">
@@ -8,18 +24,35 @@
                class="ion-display-flex ion-justify-content-center">
         
         <ion-card class="custom-card">
-          <img [src]="c.image" style="width: 100%; height: auto;" />
+          <img [src]="c.image" />
+          
           <ion-card-header>
             <ion-card-title>{{ c.name }}</ion-card-title>
-            <ion-card-subtitle>{{ c.species }}</ion-card-subtitle>
+            
+            <ion-card-subtitle>
+              <span [style.color]="c.status === 'Alive' ? '#97ce4c' : (c.status === 'Dead' ? '#ff4d4d' : '#8c8c8c')">
+                ● {{ c.status }}
+              </span> 
+              - {{ c.species }}
+            </ion-card-subtitle>
           </ion-card-header>
+
+          <div class="ion-text-right ion-padding-horizontal">
+            <ion-button fill="clear" (click)="toggleFavorite(c); $event.stopPropagation()">
+              <ion-icon 
+                [name]="c.isFav ? 'heart' : 'heart-outline'" 
+                [color]="c.isFav ? 'danger' : 'medium'" 
+                slot="icon-only">
+              </ion-icon>
+            </ion-button>
+          </div>
         </ion-card>
 
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="isSearchEmpty">
     <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
