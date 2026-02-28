@@ -1,0 +1,25 @@
+<ion-content class="custom-background">
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-justify-content-center">
+      
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3" 
+               *ngFor="let c of characters" 
+               [routerLink]="['/character-detail', c.id]"
+               class="ion-display-flex ion-justify-content-center">
+        
+        <ion-card class="custom-card">
+          <img [src]="c.image" style="width: 100%; height: auto;" />
+          <ion-card-header>
+            <ion-card-title>{{ c.name }}</ion-card-title>
+            <ion-card-subtitle>{{ c.species }}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

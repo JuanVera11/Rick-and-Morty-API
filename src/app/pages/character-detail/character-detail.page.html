@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ character?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="character" class="ion-text-center">
+    <img [src]="character?.image" style="border-radius: 10px; width: 100%; max-width: 300px;" />
+
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label>
+          <h3>Estado</h3>
+          <p>{{ character?.status }}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <h3>Especie</h3>
+          <p>{{ character?.species }}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <h3>Género</h3>
+          <p>{{ character?.gender }}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <h3>Origen</h3>
+          <p>{{ character?.origin?.name }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="!character" class="ion-text-center" style="margin-top: 50px;">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando datos del personaje...</p>
+  </div>
+</ion-content>
